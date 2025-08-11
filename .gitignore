@@ -1,0 +1,78 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
+
+# Django stuff:
+*.log
+*.pot
+
+# Sphinx documentation
+docs/_build/
+data/output
+wcodellm
+cache*
+
+tmp/*
+*.pkl
+*.parquet
+
+*.ipynb
+output/**
+PBS_run.sh.*
+benchmark/HumanEval/human_eval/rust/*
+*.txt
+vastai/
+vastai/*.zip
+!benchmark/*/*.parquet
+jaist
+!benchmark/DevEval/data/train_project_ids.txt
+!benchmark/MBPP/data/mbpp_test_task_ids.txt
+test.conf
+sync.sh
+install_rclone.sh
+!data_no_ignore/*
+tmp_dir
+!REVIEW_ROUND_1/*
+!benchmark/DevEval/data/codeLlama_13b_dev_eval_generated_task_ids.txt
+DevEval_replication/*
+*.zip
