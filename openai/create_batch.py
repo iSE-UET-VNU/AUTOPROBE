@@ -6,6 +6,8 @@ import dataeval.w_mbpp as mbpp
 import dataeval.w_ds1000 as ds1000
 import dataeval.w_repoeval as repo_eval
 import dataeval.w_deveval as dev_eval
+import dataeval.w_sec as sec_eval
+
 import models
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
@@ -18,13 +20,41 @@ from dataeval.w_repoeval import extract_generation_code as repoeval_eval_egc
 from dataeval.w_deveval import extract_generation_code as deveval_eval_egc
 
 
-PROMPT_TEMPLATE = """
-Evaluate the following code outputs. For each coding problem, you will be given an LLM-generated code output. You must determine if the LLM-generated code output is correct or not. If the LLM-generated code output is correct, write '1'; if it is not correct, write '0'.
-Problem: %s
-LLM Output: %s
-Correctness:
+PROMPT_TEMPLATE_FUNC = """
+Evaluate the following code outputs. 
+For each coding problem, you will be given an LLM-generated code output. 
+You must determine if the LLM-generated code output is correct or not. 
+If the LLM-generated code output is correct, write '1'; if it is not correct, write '0'.
+###Problem: 
+%s
+###LLM Output: 
+%s
+###Correctness:
 """
 
+PROMPT_TEMPLATE_COMPILE = """
+Evaluate the following code outputs. 
+For each coding problem, you will be given an LLM-generated code output. 
+You must determine if the LLM-generated code output is compilable or not. 
+If the LLM-generated code output is compilable, write '1'; if it is not compilable, write '0'.
+###Problem: 
+%s
+###LLM Output: 
+%s
+Compilable:
+"""
+
+PROMPT_TEMPLATE_SECURITY = """
+Evaluate the following code outputs. 
+For each coding problem, you will be given an LLM-generated code output. 
+You must determine if the LLM-generated code output is insecure or not. 
+If the LLM-generated code output is insecure, write '1'; if it is secure, write '0'.
+###Problem: 
+%s
+###LLM Output: 
+%s
+Insecure:
+"""
 
 
 def get_dataset_fn(data_name):
@@ -38,6 +68,8 @@ def get_dataset_fn(data_name):
         return repo_eval.get_dataset
     if data_name == 'dev_eval':
         return dev_eval.get_dataset
+    if data_name == 'security':
+        return sec_eval.get_dataset
 
 def get_prompt_dataset(dataset):
     tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base", trust_remote_code=True)
@@ -67,6 +99,8 @@ def extract_generation_code_fun(data_name):
         return repoeval_eval_egc
     if data_name == 'dev_eval':
         return deveval_eval_egc
+    if data_name == 'security':
+        return deveval_eval_egc
 
 def get_generation_code(args,example,generation):
     ds_fn = extract_generation_code_fun(args.dataset)
@@ -75,6 +109,12 @@ def get_generation_code(args,example,generation):
 def main(args):
     datasets = get_prompt_dataset(args.dataset)
     df = pd.read_parquet(args.file)
+    if args.type == 'security':
+        PROMPT_TEMPLATE = PROMPT_TEMPLATE_SECURITY
+    elif args.type == 'compile':
+        PROMPT_TEMPLATE = PROMPT_TEMPLATE_COMPILE
+    else:
+        PROMPT_TEMPLATE  = PROMPT_TEMPLATE_FUNC
     results = list()
     for i, row in df.iterrows():
         task_id = row['task_id']
@@ -96,6 +136,9 @@ def main(args):
                     "temperature": 1,
                     "max_completion_tokens": 2048}}
         results.append(post_api)
+    print(args.file)
+    print(df.shape,len(results))  
+    assert df.shape[0] == len(results)
     with open(f'openai/{args.output}/batch_{args.model}_{args.dataset}.jsonl','w+') as f:
         for el in results:
             f.writelines(json.dumps(el)+'\n')
@@ -107,6 +150,7 @@ if __name__ == "__main__":
     args.add_argument("--output", type=str)
     args.add_argument("--dataset", type=str )
     args.add_argument("--model", type=str)
+    args.add_argument("--type", type=str)
     args = args.parse_args()
     print(args)
     main(args)

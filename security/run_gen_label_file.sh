@@ -1,0 +1,3 @@
+python create_dataset_output_driven.py --res_file sec_files_cl13.json --source_folder /root/security/WCODELLM/security/source/LFCLF_embedding_security_codellama_CodeLlama-13b-Instruct-hf_1.parquet --outfile cl13.parquet
+python create_dataset_output_driven.py --res_file sec_files_ds13.json --source_folder /root/security/WCODELLM/security/source/LFCLF_embedding_security_deepseek-ai_deepseek-coder-1.3b-instruct_1.parquet --outfile ds13.parquet
+python create_dataset_output_driven.py --res_file sec_files_cg70.json --source_folder /root/security/WCODELLM/security/source/LFCLF_embedding_security_google_codegemma-7b-it_1.parquet --outfile cg70.parquet
