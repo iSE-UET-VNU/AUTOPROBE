@@ -1,6 +1,6 @@
 <div align="center">
 
-# Model-Agnostic Correctness Assessment for LLM-Generated Code via Dynamic Internal Representation Selection
+# Model-Agnostic Quality Assessment for LLM-Generated Code via Dynamic Internal Representation Selection
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) [![Python 3.8](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/python-380/) [![arXiv](https://img.shields.io/badge/📝-Paper-red)]()
 </div>
 
