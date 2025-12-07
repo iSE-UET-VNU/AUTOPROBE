@@ -7,7 +7,7 @@ Large Language Models (LLMs) have demonstrated impressive capabilities in code g
 
 ## 2. The Architecture
 
-![](figs/framework.png)
+![](figs/autoprobe.png)
 
 ## 3. Experimental Results
 
@@ -74,7 +74,7 @@ Large Language Models (LLMs) have demonstrated impressive capabilities in code g
 
 </details>
 
-#### 3.1.1 Functionality Assessment
+#### 3.1.2 Functionality Assessment
 
 <details>
 <summary><strong>Click to expand Functionaly Assessment results</strong></summary>
@@ -134,7 +134,7 @@ Large Language Models (LLMs) have demonstrated impressive capabilities in code g
 
 </details>
 
-#### 3.1.1 Compilability Assessment
+#### 3.1.3 Compilability Assessment
 
 <details>
 <summary><strong>Click to expand Compilability Assessment results</strong></summary>
@@ -194,31 +194,111 @@ Large Language Models (LLMs) have demonstrated impressive capabilities in code g
 
 </details>
 
+#### 3.1.4 Correlation of Accurate Predictions Across Code Quality Criteria
+
+<details>
+<summary><strong>Correlation of accurate predictions for compilability and functionality</strong></summary>
+ 
+![Figure 1. DeepSeek](figs/deepseek_venn_diagram_compilability.png)
+
+**Figure 1. DeepSeek**
+
+![Figure 2. CodeGemma](figs/codegemma_ven_diagram_functionality.png)
+
+**Figure 2. CodeGemma**
+
+</details>
+</details>
+<details>
+<summary><strong>Correlation of accurate prediction for compilability and security</strong></summary>
+ 
+![Figure 3. DeepSeek](figs/deepseek_venn_diagram_security.png)
+
+**Figure 3. DeepSeek**
+
+![Figure 4. CodeGemma](figs/codegemma_ven_diagram_security.png)
+
+**Figure 4. CodeGemma**
+</details>
+
+
 ### 3.2 Instrinsic Analysis
 #### 3.2.1 Impact of Representation Sampling Strategies
 ##### Impact of token sampling on AUTOPROBE's performance and memory usage, left axis: F1-Score; right axis: Memory usage (GB)
 <details>
 <summary><strong>Click to expand result of token sampling impact </strong></summary>
   
-![Figure 1. DeepSeek](figs/deepseek_tokensampling.png)
+![Figure 5. DeepSeek](figs/deepseek_tokensampling.png)
 
-**Figure 1. DeepSeek**
+**Figure 5. DeepSeek**
 
-![Figure 2. CodeGemma](figs/codegemma_tokensampling.png)
+![Figure 6. CodeGemma](figs/codegemma_tokensampling.png)
 
-**Figure 2. CodeGemma**
+**Figure 6. CodeGemma**
 </details>
 
 ##### Impact of layer sampling on AUTOPROBE's performance and memory usage, left axis: F1-Score; right axis: Memory usage (GB)
 <details>
 <summary><strong>Click to expand result of layer sampling impact </strong></summary>
   
-![Figure 3. DeepSeek](figs/deepseek_layersampling.png)
+![Figure 7. DeepSeek](figs/deepseek_layersampling.png)
 
-**Figure 3. DeepSeek**
+**Figure 7. DeepSeek**
 
-![Figure 4. CodeGemma](figs/codegemma_layersampling.png)
+![Figure 8. CodeGemma](figs/codegemma_layersampling.png)
 
-**Figure 4. CodeGemma**
+**Figure 8. CodeGemma**
 </details>
 
+#### 3.2.2 Impact of Informative Representation Selector
+<details>
+<summary><strong>Click to expand result of representation selector impact </strong></summary>
+**Table 4: Impact of Informative Representation Selector on AUTOPROBE Performance**
+
+  
+| Model      | Setting           | Accuracy | Precision | Recall | F1-Score |
+|------------|-------------------|----------|-----------|--------|----------|
+| CodeGemma  | Without selector  | 0.70     | 0.70      | 0.70   | 0.69     |
+|            | With selector     | 0.76     | 0.76      | 0.76   | 0.76     |
+| DeepSeek   | Without selector  | 0.69     | 0.67      | 0.69   | 0.69     |
+|            | With selector     | 0.72     | 0.71      | 0.72   | 0.71     |
+
+</details>
+
+#### 3.2.3 Impact of Aggregation and Probing Classier
+<details>
+<summary><strong>Click to expand result of aggregation function impact </strong></summary>
+**Table 5: Impacts of Aggregation Functions on AUTOPROBE's Performance**
+
+  
+| Model     | Method  | Accuracy | Precision | Recall | F1-Score |
+|-----------|---------|----------|-----------|--------|----------|
+| CodeGemma | Concat  | 0.76     | 0.76      | 0.76   | 0.76     |
+|           | Average | 0.76     | 0.76      | 0.76   | 0.76     |
+|           | Sum     | 0.76     | 0.76      | 0.76   | 0.76     |
+|           | Max     | 0.79     | 0.80      | 0.79   | 0.79     |
+|           | Min     | 0.73     | 0.73      | 0.73   | 0.73     |
+| DeepSeek  | Concat  | 0.70     | 0.70      | 0.70   | 0.70     |
+|           | Average | 0.72     | 0.71      | 0.72   | 0.70     |
+|           | Sum     | 0.72     | 0.71      | 0.72   | 0.71     |
+|           | Max     | 0.71     | 0.72      | 0.71   | 0.72     |
+|           | Min     | 0.70     | 0.70      | 0.70   | 0.70     |
+
+</details>
+
+
+<details>
+<summary><strong>Click to expand result of classifier impact </strong></summary>
+**Table 5: Impacts of Classifier on AUTOPROBE's Performance**
+
+| Model     | Classifier           | Accuracy | Precision | Recall | F1-Score |
+|-----------|----------------------|----------|-----------|--------|----------|
+| CodeGemma | MLP                  | 0.76     | 0.76      | 0.76   | 0.76     |
+|           | Logistic regression  | 0.77     | 0.77      | 0.77   | 0.77     |
+|           | SVM                  | 0.47     | 0.22      | 0.47   | 0.30     |
+| DeepSeek  | MLP                  | 0.72     | 0.71      | 0.72   | 0.71     |
+|           | Logistic regression  | 0.72     | 0.72      | 0.72   | 0.72     |
+|           | SVM                  | 0.66     | 0.43      | 0.66   | 0.52     |
+
+
+</details>
