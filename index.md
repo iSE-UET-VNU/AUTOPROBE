@@ -18,6 +18,8 @@ Large Language Models (LLMs) have demonstrated impressive capabilities in code g
 <details>
 <summary><strong>Click to expand Security Assessment results</strong></summary>
 
+<div style="overflow-x: auto;">
+ 
 **Table 1. Code quality assessment performance in security**
 
 | Code LLM | Method | Accuracy | Precision | Recall | F1-Score |
@@ -70,9 +72,12 @@ Large Language Models (LLMs) have demonstrated impressive capabilities in code g
 |  | CodeBERT | 0.76 | 0.77 | 0.76 | 0.76 |
 |  | CodeT5+ | 0.84 | 0.84 | 0.84 | 0.84 |
 |  | Openia | 0.75 | 0.74 | 0.75 | 0.75 |
-|  | AUTOPROBE| **0.89** | **0.89** | **0.89** | **0.89** |
+|  | AUTOPROBE | **0.89** | **0.89** | **0.89** | **0.89** |
+
+</div>
 
 </details>
+
 
 #### 3.1.2 Functionality Assessment
 
