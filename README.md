@@ -11,7 +11,7 @@ Large Language Models (LLMs) have demonstrated impressive capabilities in code g
 
 ## The architecture
 
-![](figs/framework.png)
+![](figs/autoprobe.png)
 
 
 ## Prepare Environment
